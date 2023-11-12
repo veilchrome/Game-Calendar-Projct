@@ -3,15 +3,13 @@ const API_KEY = "31e9f9747c5e408289a7ea690056de1d";
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
 
-// Function to remove HTML tags from string
-
+// Function to remove html tags from a string
 function stripHtmlTags(input) {
   const doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.body.textContent || " ";
+  return doc.body.textContent || "";
 }
 
-// Fungsi untuk mengambil data kalender Game dari API
-
+// Function to fetch games for a given year and month from Api
 function fetchGamesForMonth(year, month) {
   // Updating display style of navigation buttons based on the current date
   document.getElementById("prevMonth").style.display =
@@ -44,20 +42,20 @@ function fetchGamesForMonth(year, month) {
 
         htmlContent += `
 
-          <div class="date">
-              <strong>${i}</strong>
-              ${gamesForDay
-                .map(
-                  (game) => `
-                  <div class="game" data-id="${game.id}">
-                      <img src="${game.background_image}" alt="${game.name} Thumbnail">
-                      <div class="game-details">${game.name}</div>
-                  </div>
-              `
-                )
-                .join("")}
-          </div>
-          `;
+            <div class="date">
+                <strong>${i}</strong>
+                ${gamesForDay
+                  .map(
+                    (game) => `
+                    <div class="game" data-id="${game.id}">
+                        <img src="${game.background_image}" alt="${game.name} Thumbnail">
+                        <div class="game-details">${game.name}</div>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+            `;
       }
 
       document.getElementById("calendar").innerHTML = htmlContent;
@@ -114,7 +112,7 @@ const monthNames = [
   "September",
   "October",
   "November",
-  "Desember",
+  "December",
 ];
 
 document.getElementById("prevMonth").addEventListener("click", () => {
@@ -135,8 +133,7 @@ document.getElementById("nextMonth").addEventListener("click", () => {
   fetchGamesForMonth(currentYear, currentMonth);
 });
 
-// Menutup Modal Function
-
+// Close modal function
 document.querySelector(".close").addEventListener("click", () => {
   document.getElementById("gameModal").style.display = "none";
 });
